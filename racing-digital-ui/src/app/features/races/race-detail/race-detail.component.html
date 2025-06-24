@@ -1,17 +1,16 @@
-<div class="detail-container" *ngIf="race">
-    <h2>{{ race.horse }} <small>({{ race.racecourse }} - {{ race.raceDate | date:'mediumDate' }})</small></h2>
-  
-    <mat-list>
-      <mat-list-item><strong>Jockey:</strong> {{ race.jockey }}</mat-list-item>
-      <mat-list-item><strong>Trainer:</strong> {{ race.trainer }}</mat-list-item>
-      <mat-list-item><strong>Finishing Position:</strong> {{ race.finishingPosition }}</mat-list-item>
-      <mat-list-item><strong>Distance Beaten:</strong> {{ race.distanceBeaten || 'N/A' }}</mat-list-item>
-      <mat-list-item><strong>Time Beaten:</strong> {{ race.timeBeaten || 'N/A' }}</mat-list-item>
-    </mat-list>
-  
-    <div class="note-section">
-      <h3>Your Note</h3>
-      <p>{{ race.notes || 'No notes yet.' }}</p>
-      <button mat-stroked-button color="primary" (click)="editNote()">Edit Note</button>
-    </div>
-  </div>
+<mat-card *ngIf="race">
+  <h2>Race #{{ race.id }}</h2>
+  <p><strong>Horse:</strong> {{ race.horse }}</p>
+  <p><strong>Jockey:</strong> {{ race.jockey }}</p>
+  <p><strong>Position:</strong> {{ race.finishingPosition }}</p>
+  <p *ngIf="race.notes"><strong>Notes:</strong> {{ race.notes }}</p>
+</mat-card>
+
+<mat-form-field appearance="outline" class="full-width">
+  <mat-label>Notes</mat-label>
+  <textarea matInput [(ngModel)]="notes" rows="4" placeholder="Add your notes here..."></textarea>
+</mat-form-field>
+
+<button mat-raised-button color="primary" (click)="saveNotes()" [disabled]="!notes.trim()">
+  Save Notes
+</button>
