@@ -31,3 +31,19 @@ strong {
   margin-top: 1.5rem;
   margin-bottom: 1rem;
 }
+
+.best-jockey-card {
+  margin-top: 2rem;
+  background-color: #e8f5e9;
+  border-left: 4px solid #4caf50;
+}
+
+::ng-deep .horse-select-panel {
+  max-height: 300px;
+}
+
+mat-option input {
+  width: 100%;
+  padding: 4px;
+  font-size: 14px;
+}

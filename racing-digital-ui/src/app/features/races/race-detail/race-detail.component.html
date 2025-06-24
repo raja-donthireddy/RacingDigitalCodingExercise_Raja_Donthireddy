@@ -6,6 +6,38 @@
   <p *ngIf="race.notes"><strong>Notes:</strong> {{ race.notes }}</p>
 </mat-card>
 
+<mat-form-field appearance="fill" class="full-width">
+  <mat-label>Select a horse</mat-label>
+  <mat-select
+    [(value)]="selectedHorse"
+    (selectionChange)="fetchBestJockey()"
+    [disableOptionCentering]="true"
+    panelClass="horse-select-panel"
+  >
+    <mat-option>
+      <input
+        matInput
+        type="text"
+        placeholder="Search horse..."
+        [(ngModel)]="horseFilter"
+        (keydown)="$event.stopPropagation()"
+      />
+    </mat-option>
+    <mat-option
+      *ngFor="let horse of filteredHorses()"
+      [value]="horse"
+    >
+      {{ horse }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-card *ngIf="bestJockey" class="best-jockey-card">
+  <h3>🏆 Best Jockey for {{ bestJockey.horse }}</h3>
+  <p><strong>Jockey:</strong> {{ bestJockey.jockey }}</p>
+  <p><strong>Wins:</strong> {{ bestJockey.wins }}</p>
+</mat-card>
+
 <mat-form-field appearance="outline" class="full-width">
   <mat-label>Notes</mat-label>
   <textarea matInput [(ngModel)]="notes" rows="4" placeholder="Add your notes here..."></textarea>

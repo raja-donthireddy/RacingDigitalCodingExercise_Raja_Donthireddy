@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RacingDigital.API.Services;
 
 namespace RacingDigital.API.Controllers
@@ -33,11 +34,17 @@ namespace RacingDigital.API.Controllers
             return NoContent();
         }
 
-        [HttpGet("horse/{name}/best-jockey")]
-        public IActionResult GetBestJockey(string name)
+        [HttpGet("best-jockey")]
+        public IActionResult GetBestJockey([FromQuery] string horse)
         {
-            var jockey = _service.GetBestJockey(name);
+            var jockey = _service.GetBestJockeyForHorse(horse);
             return jockey == null ? NotFound("No data for this horse") : Ok(jockey);
+        }
+        [HttpGet("horses")]
+        public ActionResult<IEnumerable<string>> GetAllHorseNames()
+        {
+            var horses = _service.GetAllHorseNames();
+            return Ok(horses);
         }
 
     }

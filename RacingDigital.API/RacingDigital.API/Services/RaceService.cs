@@ -1,4 +1,5 @@
-﻿using RacingDigital.API.Data;
+﻿using Microsoft.AspNetCore.Mvc;
+using RacingDigital.API.Data;
 using RacingDigital.API.Models;
 
 namespace RacingDigital.API.Services
@@ -26,14 +27,32 @@ namespace RacingDigital.API.Services
             }
         }
 
-        public string? GetBestJockey(string horseName)
+        public BestJockey? GetBestJockeyForHorse(string horseName)
         {
-            return _context.RaceResults
-                .Where(r => r.Horse == horseName)
+            var result = _context.RaceResults
+                .Where(r => r.Horse == horseName && r.FinishingPosition == 1)
                 .GroupBy(r => r.Jockey)
-                .OrderBy(g => g.Average(r => r.FinishingPosition))
-                .Select(g => g.Key)
+                .Select(g => new BestJockey
+                {
+                    Horse = horseName,
+                    Jockey = g.Key,
+                    Wins = g.Count()
+                })
+                .OrderByDescending(j => j.Wins)
                 .FirstOrDefault();
+
+            return result;
+        }
+
+        public IEnumerable<string> GetAllHorseNames()
+        {
+            var horses = _context.RaceResults
+                .Select(r => r.Horse)
+                .Distinct()
+                .OrderBy(h => h)
+                .ToList();
+
+            return horses;
         }
     }
 
