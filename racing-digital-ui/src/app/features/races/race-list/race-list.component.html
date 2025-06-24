@@ -1,0 +1,29 @@
+<mat-table [dataSource]="raceResults" class="mat-elevation-z8">
+    <ng-container matColumnDef="horse">
+      <mat-header-cell *matHeaderCellDef> Horse </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.horse }} </mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="jockey">
+      <mat-header-cell *matHeaderCellDef> Jockey </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.jockey }} </mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="position">
+      <mat-header-cell *matHeaderCellDef> Position </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.finishingPosition }} </mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="notes">
+      <mat-header-cell *matHeaderCellDef> Notes </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        {{ row.notes || '—' }}
+        <button mat-icon-button (click)="editNote(row)">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+  
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>

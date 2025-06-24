@@ -1,0 +1,17 @@
+<div class="detail-container" *ngIf="race">
+    <h2>{{ race.horse }} <small>({{ race.racecourse }} - {{ race.raceDate | date:'mediumDate' }})</small></h2>
+  
+    <mat-list>
+      <mat-list-item><strong>Jockey:</strong> {{ race.jockey }}</mat-list-item>
+      <mat-list-item><strong>Trainer:</strong> {{ race.trainer }}</mat-list-item>
+      <mat-list-item><strong>Finishing Position:</strong> {{ race.finishingPosition }}</mat-list-item>
+      <mat-list-item><strong>Distance Beaten:</strong> {{ race.distanceBeaten || 'N/A' }}</mat-list-item>
+      <mat-list-item><strong>Time Beaten:</strong> {{ race.timeBeaten || 'N/A' }}</mat-list-item>
+    </mat-list>
+  
+    <div class="note-section">
+      <h3>Your Note</h3>
+      <p>{{ race.notes || 'No notes yet.' }}</p>
+      <button mat-stroked-button color="primary" (click)="editNote()">Edit Note</button>
+    </div>
+  </div>
